@@ -3,12 +3,11 @@ package uluru.uluruspringbackend.data.domain;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import uluru.uluruspringbackend.data.dto.MemberDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberDTO;
 import uluru.uluruspringbackend.data.embed.Address;
 import uluru.uluruspringbackend.data.enummer.TypeOfAlcohol;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Getter
@@ -43,10 +42,17 @@ public class Member {
     private float drinkingFrequency;
     @Enumerated(EnumType.STRING)
     private TypeOfAlcohol typeOfAlcohol;
-    private float averageAlcoholIntake;
-    private float degreeOfIntoxication;
 
 
+    private String averageAlcoholIntake;
+    private float numberOfBottles;
+
+    private String degreeOfIntoxication;
+    private float percentPerReferenceValue;
+
+    //home
+    private float currentBloodAlcoholLevel;
+    private float currentLevelOfIntoxication;
 
     //etc
     @Embedded
@@ -86,7 +92,11 @@ public class Member {
         dto.setDrinkingFrequency(this.drinkingFrequency);
         dto.setTypeOfAlcohol(this.typeOfAlcohol);
         dto.setAverageAlcoholIntake(this.averageAlcoholIntake);
+        dto.setNumberOfBottles(this.numberOfBottles);
         dto.setDegreeOfIntoxication(this.degreeOfIntoxication);
+        dto.setPercentPerReferenceValue(this.percentPerReferenceValue);
+        dto.setCurrentBloodAlcoholLevel(this.currentBloodAlcoholLevel);
+        dto.setCurrentLevelOfIntoxication(this.currentLevelOfIntoxication);
         dto.setAddress(this.address);
         dto.setEmergencyContact(this.emergencyContact);
         dto.setOauth(this.isOauth);

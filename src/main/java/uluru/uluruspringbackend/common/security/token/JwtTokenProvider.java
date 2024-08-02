@@ -7,8 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import uluru.uluruspringbackend.common.environment.ConfigUtil;
-import uluru.uluruspringbackend.data.dto.MemberDTO;
-import uluru.uluruspringbackend.data.dto.TokenDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberDTO;
+import uluru.uluruspringbackend.data.dto.login.TokenDTO;
 
 import java.security.Key;
 import java.util.Date;

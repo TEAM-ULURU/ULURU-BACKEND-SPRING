@@ -7,7 +7,7 @@ import lombok.SneakyThrows;
 
 import java.util.Map;
 
-import static uluru.uluruspringbackend.exception.AuthException.ILLEGAL_REGISTRATION_ID;
+import static uluru.uluruspringbackend.common.exception.AuthException.ILLEGAL_REGISTRATION_ID;
 
 @Builder
 @Getter

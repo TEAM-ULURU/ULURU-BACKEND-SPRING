@@ -1,14 +1,11 @@
-package uluru.uluruspringbackend.data.dto;
+package uluru.uluruspringbackend.data.dto.member;
 
 import lombok.Data;
 import uluru.uluruspringbackend.data.domain.Calendar;
 import uluru.uluruspringbackend.data.domain.Member;
-import uluru.uluruspringbackend.data.domain.MemberFriend;
 import uluru.uluruspringbackend.data.domain.Room;
 import uluru.uluruspringbackend.data.embed.Address;
 import uluru.uluruspringbackend.data.enummer.TypeOfAlcohol;
-
-import java.util.List;
 
 @Data
 public class MemberDTO {
@@ -21,13 +18,23 @@ public class MemberDTO {
     private float height;
     private float weight;
     private float bodyFatPercentage;
+
     private String drinkingFrequencyReferenceValue;
     private float drinkingFrequency;
     private TypeOfAlcohol typeOfAlcohol;
-    private float averageAlcoholIntake;
-    private float degreeOfIntoxication;
+    private String averageAlcoholIntake;
+    private float numberOfBottles;
+
+    private String degreeOfIntoxication;
+    private float percentPerReferenceValue;
+
+    //home
+    private float currentBloodAlcoholLevel;
+    private float currentLevelOfIntoxication;
+
     private Address address;
     private String emergencyContact;
+
     private boolean isOauth;
     private Calendar calendar;
     //private List<MemberFriend> memberFriends;
@@ -47,9 +54,13 @@ public class MemberDTO {
                 .drinkingFrequency(this.drinkingFrequency)
                 .typeOfAlcohol(this.typeOfAlcohol)
                 .averageAlcoholIntake(this.averageAlcoholIntake)
+                .numberOfBottles(this.numberOfBottles)
                 .degreeOfIntoxication(this.degreeOfIntoxication)
+                .percentPerReferenceValue(this.percentPerReferenceValue)
                 .address(this.address)
                 .emergencyContact(this.emergencyContact)
+                .currentBloodAlcoholLevel(this.currentBloodAlcoholLevel)
+                .currentLevelOfIntoxication(this.currentLevelOfIntoxication)
                 .isOauth(this.isOauth)
                 .calendar(this.calendar)
                 //.memberFriend(this.memberFriends)

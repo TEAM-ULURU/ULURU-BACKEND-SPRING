@@ -1,4 +1,4 @@
-package uluru.uluruspringbackend.data.dto;
+package uluru.uluruspringbackend.data.dto.login;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,7 +1,5 @@
-package uluru.uluruspringbackend.data.dto;
+package uluru.uluruspringbackend.data.dto.member;
 
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import lombok.Data;
 import uluru.uluruspringbackend.data.enummer.TypeOfAlcohol;
 
@@ -14,7 +12,11 @@ public class MemberSignup2PageDTO {
     private String drinkingFrequencyReferenceValue;
     private float drinkingFrequency;
     private TypeOfAlcohol typeOfAlcohol;
-    private float averageAlcoholIntake;
-    private float degreeOfIntoxication;
+
+    private String averageAlcoholIntake;
+    private float numberOfBottles;
+
+    private String degreeOfIntoxication;
+    private float percentPerReferenceValue;
 }
 

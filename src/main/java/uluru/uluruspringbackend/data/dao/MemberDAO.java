@@ -5,10 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uluru.uluruspringbackend.data.domain.Member;
-import uluru.uluruspringbackend.data.dto.MemberDTO;
-import uluru.uluruspringbackend.data.dto.MemberSignup1PageDTO;
-import uluru.uluruspringbackend.data.dto.MemberSignup2PageDTO;
-import uluru.uluruspringbackend.data.dto.MemberSignup3PageDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberSignup1PageDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberSignup2PageDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberSignup3PageDTO;
 import uluru.uluruspringbackend.repository.MemberRepository;
 
 import java.util.Optional;
@@ -113,7 +113,9 @@ public class MemberDAO {
         firstByEmail.setDrinkingFrequency(memberSignup2PageDTO.getDrinkingFrequency());
         firstByEmail.setTypeOfAlcohol(memberSignup2PageDTO.getTypeOfAlcohol());
         firstByEmail.setAverageAlcoholIntake(memberSignup2PageDTO.getAverageAlcoholIntake());
+        firstByEmail.setNumberOfBottles(memberSignup2PageDTO.getNumberOfBottles());
         firstByEmail.setDegreeOfIntoxication(memberSignup2PageDTO.getDegreeOfIntoxication());
+        firstByEmail.setPercentPerReferenceValue(memberSignup2PageDTO.getPercentPerReferenceValue());
 
 
 

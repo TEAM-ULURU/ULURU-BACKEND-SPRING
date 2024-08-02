@@ -1,13 +1,14 @@
 package uluru.uluruspringbackend.data.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Room {
 
     @Id
@@ -17,5 +18,16 @@ public class Room {
 
     @OneToMany(mappedBy = "room")
     private List<Member> members;
+
+
+    public void addMember(Member member) {
+        members.add(member);
+        member.setRoom(this);
+    }
+
+    public void removeMember(Member member) {
+        members.remove(member);
+        member.setRoom(null);
+    }
 
 }

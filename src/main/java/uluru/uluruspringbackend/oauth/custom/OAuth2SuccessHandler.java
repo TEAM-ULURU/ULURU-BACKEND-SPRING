@@ -11,8 +11,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 import uluru.uluruspringbackend.common.CommonResponse;
-import uluru.uluruspringbackend.data.dto.MemberDTO;
-import uluru.uluruspringbackend.data.dto.TokenDTO;
+import uluru.uluruspringbackend.common.LoginResponse;
+import uluru.uluruspringbackend.data.dto.member.MemberDTO;
+import uluru.uluruspringbackend.data.dto.login.TokenDTO;
 import uluru.uluruspringbackend.service.MemberService;
 
 import java.io.IOException;
@@ -38,16 +39,17 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
             log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Need Signup. Try Signup");
             log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Signup Result. Http status={}, Email={}",signUpResultResponse.getStatus(), memberDTO.getEmail());
-            response.setHeader("Custom-Header", memberDTO.getEmail());
-            response.sendRedirect("http://localhost:3000/entering-page-1");
-            return;
+
+            //response.setHeader("Custom-Header", memberDTO.getEmail());
+            //response.sendRedirect("http://localhost:3000/entering-page-1");
+            //return;
 
 
         }
 
         //이후 login 시도 및 결과 반환
         log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Already Sign upped User. Try Login");
-        CommonResponse loginResultResponse = memberService.login(memberDTO);
+        LoginResponse loginResultResponse = memberService.login(memberDTO);
         log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Login Result. Http status={}, JWT Token={}",loginResultResponse.getStatus(), ((TokenDTO)loginResultResponse.getObject()).getAccessToken());
 
 
@@ -56,7 +58,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         response.setContentType("application/json");
 
         //Write HttpResponse Body
-        response.getWriter().write(convertCommonResponseToJson(loginResultResponse));
+        response.getWriter().write(convertLoginResponseToJson(loginResultResponse));
 
     }
 
@@ -66,7 +68,7 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
      * @return : Json 형식의 String
      *
      */
-    private String convertCommonResponseToJson(CommonResponse response) {
+    private String convertLoginResponseToJson(LoginResponse response) {
 
         // JSON 변환 (Jackson 라이브러리 사용)
         ObjectMapper objectMapper = new ObjectMapper();

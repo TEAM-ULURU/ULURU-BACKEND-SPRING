@@ -1,6 +1,5 @@
-package uluru.uluruspringbackend.data.dto;
+package uluru.uluruspringbackend.data.dto.member;
 
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data

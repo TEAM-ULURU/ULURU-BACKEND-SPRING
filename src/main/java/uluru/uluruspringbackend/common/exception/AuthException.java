@@ -1,4 +1,4 @@
-package uluru.uluruspringbackend.exception;
+package uluru.uluruspringbackend.common.exception;
 
 public class AuthException extends RuntimeException{
 

@@ -1,20 +1,16 @@
 package uluru.uluruspringbackend.controller;
 
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import uluru.uluruspringbackend.data.dto.MemberSignup1PageDTO;
-import uluru.uluruspringbackend.data.dto.MemberSignup2PageDTO;
-import uluru.uluruspringbackend.data.dto.MemberSignup3PageDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberSignup1PageDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberSignup2PageDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberSignup3PageDTO;
 import uluru.uluruspringbackend.service.MemberService;
-
-import java.net.http.HttpResponse;
 
 @RestController
 @RequestMapping("/api/signup")

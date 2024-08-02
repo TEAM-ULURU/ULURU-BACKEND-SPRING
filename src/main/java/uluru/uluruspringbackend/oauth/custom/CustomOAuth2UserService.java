@@ -7,13 +7,10 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import uluru.uluruspringbackend.data.dao.MemberDAO;
-import uluru.uluruspringbackend.data.dto.MemberDTO;
+import uluru.uluruspringbackend.data.dto.member.MemberDTO;
 import uluru.uluruspringbackend.oauth.OAuth2UserInfoMaker;
 
-import java.util.ArrayList;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -63,7 +60,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         dto.setId(null);
         dto.setName(oAuth2UserInfoMaker.getName());
         dto.setEmail(oAuth2UserInfoMaker.getEmail());
-        dto.setOauth(true);
+        dto.setOauth(false);
         return dto;
 
     }

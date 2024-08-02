@@ -1,4 +1,4 @@
-package uluru.uluruspringbackend.data.dto;
+package uluru.uluruspringbackend.data.dto.member;
 
 import lombok.Data;
 import uluru.uluruspringbackend.data.embed.Address;
