@@ -12,6 +12,4 @@ public class Calendar {
     @Column(name = "calendar_id")
     private Long id;
 
-
-
 }

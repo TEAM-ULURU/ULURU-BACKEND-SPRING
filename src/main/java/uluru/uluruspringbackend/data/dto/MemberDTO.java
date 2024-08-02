@@ -1,7 +1,8 @@
-package uluru.uluruspringbackend.dto;
+package uluru.uluruspringbackend.data.dto;
 
 import lombok.Data;
 import uluru.uluruspringbackend.data.domain.Calendar;
+import uluru.uluruspringbackend.data.domain.Member;
 import uluru.uluruspringbackend.data.domain.MemberFriend;
 import uluru.uluruspringbackend.data.domain.Room;
 import uluru.uluruspringbackend.data.embed.Address;
@@ -20,7 +21,7 @@ public class MemberDTO {
     private float height;
     private float weight;
     private float bodyFatPercentage;
-    private float drinkingFrequencyReferenceValue;
+    private String drinkingFrequencyReferenceValue;
     private float drinkingFrequency;
     private TypeOfAlcohol typeOfAlcohol;
     private float averageAlcoholIntake;
@@ -29,7 +30,31 @@ public class MemberDTO {
     private String emergencyContact;
     private boolean isOauth;
     private Calendar calendar;
-    private List<MemberFriend> memberFriends;
+    //private List<MemberFriend> memberFriends;
     private Room room;
+
+    public Member toEntity() {
+        return Member.builder()
+                .id(this.id)
+                .email(this.email)
+                .gender(this.gender)
+                .name(this.name)
+                .age(this.age)
+                .height(this.height)
+                .weight(this.weight)
+                .bodyFatPercentage(this.bodyFatPercentage)
+                .drinkingFrequencyReferenceValue(this.drinkingFrequencyReferenceValue)
+                .drinkingFrequency(this.drinkingFrequency)
+                .typeOfAlcohol(this.typeOfAlcohol)
+                .averageAlcoholIntake(this.averageAlcoholIntake)
+                .degreeOfIntoxication(this.degreeOfIntoxication)
+                .address(this.address)
+                .emergencyContact(this.emergencyContact)
+                .isOauth(this.isOauth)
+                .calendar(this.calendar)
+                //.memberFriend(this.memberFriends)
+                .room(this.room)
+                .build();
+    }
 
 }

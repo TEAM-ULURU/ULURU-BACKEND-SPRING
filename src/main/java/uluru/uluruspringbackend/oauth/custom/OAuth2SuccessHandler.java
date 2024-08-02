@@ -1,4 +1,4 @@
-package uluru.uluruspringbackend.data.oauth.custom;
+package uluru.uluruspringbackend.oauth.custom;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import uluru.uluruspringbackend.common.CommonResponse;
+import uluru.uluruspringbackend.data.dto.MemberDTO;
+import uluru.uluruspringbackend.data.dto.TokenDTO;
+import uluru.uluruspringbackend.service.MemberService;
 
 import java.io.IOException;
 
@@ -17,34 +21,33 @@ import java.io.IOException;
 @Component
 @Slf4j
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
+
+    private final MemberService memberService;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
         //CustomOAuth2UserService에서 반환한 PrincipalDetails 의 UserDTO 가져오기
-        UserDTO userDTO = ((PrincipalDetails) authentication.getPrincipal()).getUserDTO();
-        log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] success User load. name={}, email={}", userDTO.getUserName(), userDTO.getUserEmail());
+        MemberDTO memberDTO = ((PrincipalDetails) authentication.getPrincipal()).getUserDTO();
+        log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] success User load. name={}, email={}", memberDTO.getName(), memberDTO.getEmail());
 
         //이미 signUp이 되어 있는지 확인
-        CommonResponse signUpResultResponse =  userService.signup(userDTO);
+        CommonResponse signUpResultResponse =  memberService.signup(memberDTO);
 
         //signUp이 되어있지 않다면 signUp 관련 로그 작성. 이후 추가 정보 Post 요청 필요 (school, major, grade)
         if(signUpResultResponse.isSuccess()){
 
             log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Need Signup. Try Signup");
-            log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Signup Result. Http status={}, Email={}",signUpResultResponse.getStatus(), userDTO.getUserEmail());
-            //signUpResultResponse.setObject(userDTO.getUserEmail());
+            log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Signup Result. Http status={}, Email={}",signUpResultResponse.getStatus(), memberDTO.getEmail());
+            response.setHeader("Custom-Header", memberDTO.getEmail());
+            response.sendRedirect("http://localhost:3000/entering-page-1");
+            return;
 
-            //HttpResponse Header Mapping
-            //response.setStatus(signUpResultResponse.getStatus().value());
-            //response.setContentType("application/json");
 
-            //Write HttpResponse Body
-            //response.getWriter().write(convertCommonResponseToJson(signUpResultResponse));
         }
 
         //이후 login 시도 및 결과 반환
         log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Already Sign upped User. Try Login");
-        CommonResponse loginResultResponse = userService.login(userDTO);
+        CommonResponse loginResultResponse = memberService.login(memberDTO);
         log.info("[OAuth2SuccessHandler]-[onAuthenticationSuccess] Login Result. Http status={}, JWT Token={}",loginResultResponse.getStatus(), ((TokenDTO)loginResultResponse.getObject()).getAccessToken());
 
 
