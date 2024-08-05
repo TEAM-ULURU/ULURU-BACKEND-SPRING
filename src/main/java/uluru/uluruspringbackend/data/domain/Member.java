@@ -7,6 +7,7 @@ import uluru.uluruspringbackend.data.dto.member.MemberDTO;
 import uluru.uluruspringbackend.data.embed.Address;
 import uluru.uluruspringbackend.data.enummer.TypeOfAlcohol;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,8 +41,9 @@ public class Member {
     //drink information
     private String drinkingFrequencyReferenceValue;
     private float drinkingFrequency;
-    @Enumerated(EnumType.STRING)
-    private TypeOfAlcohol typeOfAlcohol;
+
+
+    private String typeOfAlcohol;
 
 
     private String averageAlcoholIntake;
@@ -54,22 +56,36 @@ public class Member {
     private float currentBloodAlcoholLevel;
     private float currentLevelOfIntoxication;
 
+    //맥주
+    private float nowDrinkSoju;
+    private float nowSojuMl;
+
+    //소주
+    private float nowDrinkBeer;
+    private float nowBeerMl;
+
     //etc
     @Embedded
     private Address address;
     private String emergencyContact;
 
 
+    private int numberOfDrinks = 0;
+
+    private String drinkingDate;
+
+
+    //
     private boolean isOauth;
 
-    @OneToOne
-    @JoinColumn(name = "calendar_id")
-    private Calendar calendar;
+    //@OneToOne
+    //@JoinColumn(name = "calendar_id")
+    //private Calendar calendar;
 
     @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
-    private List<MemberFriend> memberFriend;
+    private List<MemberFriend> memberFriend  = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "room_id")
     private Room room;
 
@@ -97,10 +113,16 @@ public class Member {
         dto.setPercentPerReferenceValue(this.percentPerReferenceValue);
         dto.setCurrentBloodAlcoholLevel(this.currentBloodAlcoholLevel);
         dto.setCurrentLevelOfIntoxication(this.currentLevelOfIntoxication);
+        dto.setNowBeerMl(this.nowBeerMl);
+        dto.setNowDrinkBeer(this.nowDrinkBeer);
+        dto.setNowSojuMl(this.nowSojuMl);
+        dto.setNowDrinkSoju(this.nowDrinkSoju);
         dto.setAddress(this.address);
         dto.setEmergencyContact(this.emergencyContact);
+        dto.setNumberOfDrinks(this.numberOfDrinks);
+        dto.setDrinkingDate(this.drinkingDate);
         dto.setOauth(this.isOauth);
-        dto.setCalendar(this.calendar);
+        //dto.setCalendar(this.calendar);
         //dto.setMemberFriends(this.memberFriend.stream().collect(Collectors.toList()));
         dto.setRoom(this.room);
         return dto;

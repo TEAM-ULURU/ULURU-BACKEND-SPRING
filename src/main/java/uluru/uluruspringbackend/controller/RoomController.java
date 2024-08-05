@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import uluru.uluruspringbackend.common.CommonResponse;
+import uluru.uluruspringbackend.common.response.CommonResponse;
 import uluru.uluruspringbackend.service.RoomService;
 
 @RestController
@@ -40,7 +40,7 @@ public class RoomController {
     }
 
     @PostMapping("/enter")
-    public ResponseEntity<CommonResponse> enterRoom(@RequestBody String roomCode) {
+    public ResponseEntity<CommonResponse> enterRoom(@RequestParam String roomCode) {
 
         log.info("[RoomController] [enterRoom] roomCode: {}", roomCode);
 

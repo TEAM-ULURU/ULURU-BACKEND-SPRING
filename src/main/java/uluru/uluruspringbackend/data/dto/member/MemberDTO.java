@@ -1,7 +1,7 @@
 package uluru.uluruspringbackend.data.dto.member;
 
 import lombok.Data;
-import uluru.uluruspringbackend.data.domain.Calendar;
+
 import uluru.uluruspringbackend.data.domain.Member;
 import uluru.uluruspringbackend.data.domain.Room;
 import uluru.uluruspringbackend.data.embed.Address;
@@ -21,7 +21,7 @@ public class MemberDTO {
 
     private String drinkingFrequencyReferenceValue;
     private float drinkingFrequency;
-    private TypeOfAlcohol typeOfAlcohol;
+    private String typeOfAlcohol;
     private String averageAlcoholIntake;
     private float numberOfBottles;
 
@@ -32,11 +32,23 @@ public class MemberDTO {
     private float currentBloodAlcoholLevel;
     private float currentLevelOfIntoxication;
 
+    //맥주
+    private float nowDrinkSoju;
+    private float nowSojuMl;
+
+    //소주
+    private float nowDrinkBeer;
+    private float nowBeerMl;
+
     private Address address;
     private String emergencyContact;
+    private int numberOfDrinks;
 
-    private boolean isOauth;
-    private Calendar calendar;
+    private String drinkingDate;
+
+
+    private boolean isOauth = false;
+    // private Calendar calendar;
     //private List<MemberFriend> memberFriends;
     private Room room;
 
@@ -59,10 +71,16 @@ public class MemberDTO {
                 .percentPerReferenceValue(this.percentPerReferenceValue)
                 .address(this.address)
                 .emergencyContact(this.emergencyContact)
+                .numberOfDrinks(this.numberOfDrinks)
                 .currentBloodAlcoholLevel(this.currentBloodAlcoholLevel)
                 .currentLevelOfIntoxication(this.currentLevelOfIntoxication)
+                .nowDrinkSoju(this.nowDrinkSoju)
+                .nowSojuMl(this.nowSojuMl)
+                .nowDrinkBeer(this.nowDrinkBeer)
+                .nowBeerMl(this.nowBeerMl)
+                .drinkingDate(this.drinkingDate)
                 .isOauth(this.isOauth)
-                .calendar(this.calendar)
+               // .calendar(this.calendar)
                 //.memberFriend(this.memberFriends)
                 .room(this.room)
                 .build();

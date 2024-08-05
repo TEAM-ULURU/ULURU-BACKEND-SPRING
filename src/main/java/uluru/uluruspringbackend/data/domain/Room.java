@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -12,12 +13,13 @@ import java.util.List;
 public class Room {
 
     @Id
+    @GeneratedValue
     @Column(name = "room_id")
     private Long id;
     private String roomCode;
 
-    @OneToMany(mappedBy = "room")
-    private List<Member> members;
+    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY)
+    private List<Member> members = new ArrayList<>();
 
 
     public void addMember(Member member) {

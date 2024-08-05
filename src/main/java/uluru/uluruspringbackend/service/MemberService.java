@@ -1,18 +1,17 @@
 package uluru.uluruspringbackend.service;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import uluru.uluruspringbackend.common.CommonResponse;
-import uluru.uluruspringbackend.common.LoginResponse;
+import uluru.uluruspringbackend.common.response.CommonResponse;
+import uluru.uluruspringbackend.common.response.LoginResponse;
 import uluru.uluruspringbackend.common.security.token.JwtTokenProvider;
 import uluru.uluruspringbackend.data.dao.MemberDAO;
 import uluru.uluruspringbackend.data.dto.login.TokenDTO;
-import uluru.uluruspringbackend.data.dto.member.MemberDTO;
-import uluru.uluruspringbackend.data.dto.member.MemberSignup1PageDTO;
-import uluru.uluruspringbackend.data.dto.member.MemberSignup2PageDTO;
-import uluru.uluruspringbackend.data.dto.member.MemberSignup3PageDTO;
+import uluru.uluruspringbackend.data.dto.member.*;
+import uluru.uluruspringbackend.repository.MemberRepository;
 
 import java.util.Optional;
 
@@ -82,6 +81,69 @@ public class MemberService {
         return memberDAO.addUserInfo(memberSignup3PageDTO);
     }
 
+
+    public CommonResponse getMyInfo(Long myId){
+        MemberDTO me = memberDAO.getUserById(myId).get();
+
+        MemberMyPageDTO memberMyPageDTO = MemberMyPageDTO.toMemberMyPageDTO(me);
+
+        return new CommonResponse(true, HttpStatus.OK, "유저 정보 가져오기 성공", memberMyPageDTO);
+
+
+    }
+
+    public CommonResponse deleteUser(Long myId) {
+
+        boolean isDeleteSuccess = memberDAO.deleteUser(myId);
+
+        if(isDeleteSuccess) {
+            return new CommonResponse(true, HttpStatus.OK, "유저 삭제 성공");
+        }
+        else
+            return new CommonResponse(false, HttpStatus.BAD_REQUEST, "유저 삭제 실패");
+
+
+    }
+
+    public CommonResponse updateUser(Long myId, MemberUpdateDTO memberUpdateDTO) {
+
+       MemberDTO me = memberDAO.getUserById(myId).get();
+
+       if(!memberUpdateDTO.isUpdate(me))
+           return new CommonResponse(false, HttpStatus.BAD_REQUEST, "유저 삭제 실패");
+
+        boolean isUpdateSuccess = memberDAO.updateUser(myId, memberUpdateDTO);
+
+        if(isUpdateSuccess)
+            return new CommonResponse(true, HttpStatus.OK,"변경사항이 저장되었습니다.");
+        else
+            return new CommonResponse(false, HttpStatus.BAD_REQUEST,"로그인이 잘못 되었습니다.");
+
+    }
+
+/*
+    @PostConstruct
+    public void init1(){
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setName("한규현1");
+        memberDTO.setEmail("abcde1@gmail.com");
+
+        MemberDTO memberDTO1 = new MemberDTO();
+        memberDTO1.setName("노민영1");
+        memberDTO1.setEmail("qwere1@gmail.com");
+
+
+        MemberDTO memberDTO2 = new MemberDTO();
+        memberDTO2.setName("김다은1");
+        memberDTO2.setEmail("qwerr1@gmail.com");
+
+        signup(memberDTO);
+        signup(memberDTO1);
+        signup(memberDTO2);
+
+    }
+
+ */
 
 
 

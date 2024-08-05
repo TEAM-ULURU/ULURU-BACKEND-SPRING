@@ -6,9 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import uluru.uluruspringbackend.common.CommonResponse;
+import uluru.uluruspringbackend.common.response.CommonResponse;
 import uluru.uluruspringbackend.common.utils.LongToStringMapper;
-import uluru.uluruspringbackend.data.dao.MemberDAO;
 import uluru.uluruspringbackend.data.dao.RoomDAO;
 import uluru.uluruspringbackend.data.domain.Member;
 import uluru.uluruspringbackend.data.domain.Room;
@@ -100,6 +99,9 @@ public class RoomService {
             Member member = memberRepository.findFirstById(memberId);
             room.removeMember(member);
 
+            if(room.getMembers().isEmpty()){
+                roomRepository.delete(room);
+            }
             return new CommonResponse(true, HttpStatus.OK, "Leave Room Success");
 
         }

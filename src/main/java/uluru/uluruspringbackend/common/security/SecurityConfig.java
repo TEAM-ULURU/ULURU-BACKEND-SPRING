@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
+import uluru.uluruspringbackend.oauth.custom.HttpCookieOAuth2AuthorizationRequestRepository;
 import uluru.uluruspringbackend.oauth.custom.OAuth2SuccessHandler;
 
 
@@ -16,9 +17,11 @@ import uluru.uluruspringbackend.oauth.custom.OAuth2SuccessHandler;
 @EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final CorsConfig corsConfig;
     private final OAuth2SuccessHandler oAuth2SuccessHandler;
     private final OAuth2UserService oAuth2UserService;
+    private final HttpCookieOAuth2AuthorizationRequestRepository httpCookieOAuth2AuthorizationRequestRepository;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -45,9 +48,9 @@ public class SecurityConfig {
                                 .successHandler(oAuth2SuccessHandler)
 
                                 //커스텀 state 저장 클래스
-                                //.authorizationEndpoint(custom ->
-                                       // custom.authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository)
-                                //)
+                                .authorizationEndpoint(custom ->
+                                       custom.authorizationRequestRepository(httpCookieOAuth2AuthorizationRequestRepository)
+                                )
                 );
 
         return http.build();

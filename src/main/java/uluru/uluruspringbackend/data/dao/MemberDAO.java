@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import uluru.uluruspringbackend.data.domain.Member;
-import uluru.uluruspringbackend.data.dto.member.MemberDTO;
-import uluru.uluruspringbackend.data.dto.member.MemberSignup1PageDTO;
-import uluru.uluruspringbackend.data.dto.member.MemberSignup2PageDTO;
-import uluru.uluruspringbackend.data.dto.member.MemberSignup3PageDTO;
+import uluru.uluruspringbackend.data.dto.member.*;
 import uluru.uluruspringbackend.repository.MemberRepository;
 
 import java.util.Optional;
@@ -77,6 +74,39 @@ public class MemberDAO {
         }
     }
 
+    public boolean deleteUser(Long memberId){
+
+        Optional<Member> byId = memberRepository.findById(memberId);
+
+        if(byId.isPresent()) {
+            memberRepository.delete(byId.get());
+            return true;
+        }
+
+        return false;
+    }
+
+    public boolean updateUser(Long memberId, MemberUpdateDTO memberUpdateDTO){
+
+        Optional<Member> optionMe = memberRepository.findById(memberId);
+
+        if(optionMe.isEmpty())
+            return false;
+
+        Member m = optionMe.get();
+
+        m.setAge(memberUpdateDTO.getAge());
+        m.setHeight(memberUpdateDTO.getHeight());
+        m.setWeight(memberUpdateDTO.getWeight());
+        m.setBodyFatPercentage(memberUpdateDTO.getBodyFatPercentage());
+        m.getAddress().setDetailAddress(memberUpdateDTO.getAddress().getDetailAddress());
+        m.getAddress().setStreetNameAddress(memberUpdateDTO.getAddress().getStreetNameAddress());
+        m.setEmergencyContact(memberUpdateDTO.getEmergencyContact());
+
+        return true;
+
+    }
+
     public boolean addUserInfo(MemberSignup1PageDTO memberSignup1PageDTO){
 
         log.info("[UserDAO]-[addUserInfo 1] UserEmail로 User 정보 접근");
@@ -111,7 +141,7 @@ public class MemberDAO {
 
         firstByEmail.setDrinkingFrequencyReferenceValue(memberSignup2PageDTO.getDrinkingFrequencyReferenceValue());
         firstByEmail.setDrinkingFrequency(memberSignup2PageDTO.getDrinkingFrequency());
-        firstByEmail.setTypeOfAlcohol(memberSignup2PageDTO.getTypeOfAlcohol());
+        //firstByEmail.setTypeOfAlcohol(memberSignup2PageDTO.getTypeOfAlcohol());
         firstByEmail.setAverageAlcoholIntake(memberSignup2PageDTO.getAverageAlcoholIntake());
         firstByEmail.setNumberOfBottles(memberSignup2PageDTO.getNumberOfBottles());
         firstByEmail.setDegreeOfIntoxication(memberSignup2PageDTO.getDegreeOfIntoxication());

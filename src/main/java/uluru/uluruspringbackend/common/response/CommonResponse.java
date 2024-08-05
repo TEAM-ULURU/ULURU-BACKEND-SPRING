@@ -1,4 +1,4 @@
-package uluru.uluruspringbackend.common;
+package uluru.uluruspringbackend.common.response;
 
 import lombok.Builder;
 import lombok.Getter;

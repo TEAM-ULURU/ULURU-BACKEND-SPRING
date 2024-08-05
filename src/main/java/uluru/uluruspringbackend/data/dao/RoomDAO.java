@@ -3,10 +3,7 @@ package uluru.uluruspringbackend.data.dao;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
-import uluru.uluruspringbackend.common.CommonResponse;
 import uluru.uluruspringbackend.data.domain.Member;
 import uluru.uluruspringbackend.data.dto.member.MemberInRoomDTO;
 import uluru.uluruspringbackend.data.dto.room.RoomDTO;
