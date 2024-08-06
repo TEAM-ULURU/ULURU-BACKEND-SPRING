@@ -12,20 +12,27 @@ public class MemberMyPageDTO {
 
     private String name;
     private String email;
-    private String basicInfo;
+    private float height;
+    private float weight;
+    private int age;
+    private float bodyFat;
     private String address;
-    private String phoneNumber;
+    private String addressDetail;
+    private String gender;
+    private String emergencyContact;
 
     public static MemberMyPageDTO toMemberMyPageDTO(MemberDTO memberDTO){
         MemberMyPageDTO memberMyPageDTO = new MemberMyPageDTO();
+        memberMyPageDTO.setGender(memberDTO.getGender());
         memberMyPageDTO.setName(memberDTO.getName());
         memberMyPageDTO.setEmail(memberDTO.getEmail());
-        memberMyPageDTO.setAddress(memberDTO.getAddress().getStreetNameAddress()+",\n"+memberDTO.getAddress().getDetailAddress());
-        memberMyPageDTO.setPhoneNumber(memberDTO.getEmergencyContact());
-
-        String basicInfo = memberDTO.getGender() + " / "+memberDTO.getHeight() + " / "+memberDTO.getWeight() +" / "+memberDTO.getBodyFatPercentage() +"%";
-
-        memberMyPageDTO.setBasicInfo(basicInfo);
+        memberMyPageDTO.setHeight(memberDTO.getHeight());
+        memberMyPageDTO.setWeight(memberDTO.getWeight());
+        memberMyPageDTO.setAge(memberDTO.getAge());
+        memberMyPageDTO.setBodyFat(memberDTO.getBodyFatPercentage());
+        memberMyPageDTO.setAddress(memberDTO.getAddress().getStreetNameAddress());
+        memberMyPageDTO.setAddressDetail(memberDTO.getAddress().getDetailAddress());
+        memberMyPageDTO.setEmergencyContact(memberDTO.getEmergencyContact());
 
         return memberMyPageDTO;
 

@@ -3,6 +3,7 @@ package uluru.uluruspringbackend.common.utils;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.util.SerializationUtils;
 
@@ -11,6 +12,7 @@ import java.util.Optional;
 
 
 @Component
+@Slf4j
 public class CookieUtils {
 
     public Optional<Cookie> getCookie(HttpServletRequest request, String name) {
@@ -28,11 +30,13 @@ public class CookieUtils {
     public void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
-        //cookie.setHttpOnly(true);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(true);
+        cookie.setAttribute("SameSite","None");
         cookie.setMaxAge(maxAge);
-        cookie.setDomain("localhost");
+        cookie.setDomain("alt-web.run.goorm.io");
         response.addCookie(cookie);
-        response.setHeader("Set-Cookie", name+"="+value+"; Max-Age=3600;"+" Secure; SameSite=None");
+        response.setHeader("Set-Cookie", name+"="+value+"; "+"Path=/; Secure; HttpOnly; SameSite=None");
     }
 
     public void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {

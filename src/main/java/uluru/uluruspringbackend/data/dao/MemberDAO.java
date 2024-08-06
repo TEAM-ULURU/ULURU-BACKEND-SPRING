@@ -98,9 +98,9 @@ public class MemberDAO {
         m.setAge(memberUpdateDTO.getAge());
         m.setHeight(memberUpdateDTO.getHeight());
         m.setWeight(memberUpdateDTO.getWeight());
-        m.setBodyFatPercentage(memberUpdateDTO.getBodyFatPercentage());
-        m.getAddress().setDetailAddress(memberUpdateDTO.getAddress().getDetailAddress());
-        m.getAddress().setStreetNameAddress(memberUpdateDTO.getAddress().getStreetNameAddress());
+        m.setBodyFatPercentage(memberUpdateDTO.getBodyFat());
+        m.getAddress().setDetailAddress(memberUpdateDTO.getAddressDetail());
+        m.getAddress().setStreetNameAddress(memberUpdateDTO.getAddress());
         m.setEmergencyContact(memberUpdateDTO.getEmergencyContact());
 
         return true;

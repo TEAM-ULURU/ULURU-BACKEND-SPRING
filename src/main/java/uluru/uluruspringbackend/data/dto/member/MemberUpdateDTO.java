@@ -3,15 +3,18 @@ package uluru.uluruspringbackend.data.dto.member;
 import lombok.Data;
 import uluru.uluruspringbackend.data.embed.Address;
 
-import java.util.Objects;
-
 @Data
 public class MemberUpdateDTO {
+    private String name;
+    private String email;
+    private String gender;
+
     private int age;
     private float height;
     private float weight;
-    private float bodyFatPercentage;
-    private Address address;
+    private float bodyFat;
+    private String address;
+    private String addressDetail;
     private String emergencyContact;
 
     public boolean isUpdate(MemberDTO memberDTO){
@@ -24,13 +27,13 @@ public class MemberUpdateDTO {
         if (this.weight != memberDTO.getWeight()) {
             return true;
         }
-        if (this.bodyFatPercentage != memberDTO.getBodyFatPercentage()) {
+        if (this.bodyFat != memberDTO.getBodyFatPercentage()) {
             return true;
         }
-        if (!this.address.getDetailAddress().equals(memberDTO.getAddress().getDetailAddress())) {
+        if (!this.address.equals(memberDTO.getAddress().getDetailAddress())) {
             return true;
         }
-        if (!this.address.getStreetNameAddress().equals(memberDTO.getAddress().getStreetNameAddress())) {
+        if (!this.addressDetail.equals(memberDTO.getAddress().getStreetNameAddress())) {
             return true;
         }
         if (!this.emergencyContact.equals(memberDTO.getEmergencyContact())) {
