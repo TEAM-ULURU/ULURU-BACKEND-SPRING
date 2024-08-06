@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import uluru.uluruspringbackend.common.response.CommonResponse;
 import uluru.uluruspringbackend.common.response.LoginResponse;
 import uluru.uluruspringbackend.common.security.token.JwtTokenProvider;
@@ -54,6 +55,7 @@ public class MemberService {
         }
     }
 
+    @Transactional
     public CommonResponse signup(MemberDTO memberDTO) {
 
         log.info("[UserService]-[signup] UserDAO에 회원 정보 저장 요청 : {}", memberDTO.getEmail());
@@ -105,6 +107,7 @@ public class MemberService {
 
     }
 
+    @Transactional
     public CommonResponse updateUser(Long myId, MemberUpdateDTO memberUpdateDTO) {
 
        MemberDTO me = memberDAO.getUserById(myId).get();

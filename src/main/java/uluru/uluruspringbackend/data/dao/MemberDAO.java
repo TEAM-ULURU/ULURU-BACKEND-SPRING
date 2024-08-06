@@ -74,6 +74,8 @@ public class MemberDAO {
         }
     }
 
+
+    @Transactional
     public boolean deleteUser(Long memberId){
 
         Optional<Member> byId = memberRepository.findById(memberId);
@@ -99,8 +101,10 @@ public class MemberDAO {
         m.setHeight(memberUpdateDTO.getHeight());
         m.setWeight(memberUpdateDTO.getWeight());
         m.setBodyFatPercentage(memberUpdateDTO.getBodyFat());
-        m.getAddress().setDetailAddress(memberUpdateDTO.getAddressDetail());
-        m.getAddress().setStreetNameAddress(memberUpdateDTO.getAddress());
+        if(m.getAddress() != null) {
+            m.getAddress().setDetailAddress(memberUpdateDTO.getAddressDetail());
+            m.getAddress().setStreetNameAddress(memberUpdateDTO.getAddress());
+        }
         m.setEmergencyContact(memberUpdateDTO.getEmergencyContact());
 
         return true;

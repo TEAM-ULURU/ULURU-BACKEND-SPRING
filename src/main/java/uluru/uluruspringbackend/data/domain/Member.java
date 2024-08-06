@@ -74,6 +74,8 @@ public class Member {
 
     private String drinkingDate;
 
+    private String calendarInfo;
+
 
     //
     private boolean isOauth;

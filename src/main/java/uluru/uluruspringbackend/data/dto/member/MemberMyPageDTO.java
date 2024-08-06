@@ -30,8 +30,10 @@ public class MemberMyPageDTO {
         memberMyPageDTO.setWeight(memberDTO.getWeight());
         memberMyPageDTO.setAge(memberDTO.getAge());
         memberMyPageDTO.setBodyFat(memberDTO.getBodyFatPercentage());
-        memberMyPageDTO.setAddress(memberDTO.getAddress().getStreetNameAddress());
-        memberMyPageDTO.setAddressDetail(memberDTO.getAddress().getDetailAddress());
+        if(memberDTO.getAddress() != null) {
+            memberMyPageDTO.setAddress(memberDTO.getAddress().getStreetNameAddress());
+            memberMyPageDTO.setAddressDetail(memberDTO.getAddress().getDetailAddress());
+        }
         memberMyPageDTO.setEmergencyContact(memberDTO.getEmergencyContact());
 
         return memberMyPageDTO;
